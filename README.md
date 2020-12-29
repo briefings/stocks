@@ -1,2 +1,3 @@
-# stocks
-Brief Investigations: via Stock Prices
+## Stocks
+
+**Brief Investigations**: via Stock Prices
