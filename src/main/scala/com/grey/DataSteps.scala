@@ -27,12 +27,13 @@ class DataSteps(spark: SparkSession) {
     // The list of data files
     val listOfFiles: List[File] = new ListOfFiles().listOfFiles(
       dataDirectory = Paths.get(localSettings.resourcesDirectory, parameters.dataPath).toString,
-      listOfExtensions = List(parameters.typeOf),
-      listOfPatterns = List("*")
+      listOfExtensions = List(parameters.typeOf)
     )
 
     // Sections
     val sections: ParSeq[DataFrame] = listOfFiles.par.map { file =>
+
+      println(file.toString)
 
       spark.read.schema(schemaOf.get)
         .format("csv")
