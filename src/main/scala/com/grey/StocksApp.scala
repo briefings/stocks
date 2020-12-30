@@ -21,14 +21,14 @@ object StocksApp {
     val inspectsArguments = InspectArguments
     val parameters: InspectArguments.Parameters = inspectsArguments.inspectArguments(args = args)
 
-    // Limiting log data streama
+    // Limiting log data streams
     Logger.getLogger("org").setLevel(Level.OFF)
     Logger.getLogger("akka").setLevel(Level.OFF)
 
     // Spark session instance
     val spark = SparkSession.builder()
       .appName("stocks")
-      .config("spark.serializer", "org.apache.spark.serializer.KyroSerializer")
+      .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
       .getOrCreate()
 
     // Spark logs level
