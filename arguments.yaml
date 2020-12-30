@@ -1,0 +1,3 @@
+dataPath: "data" # relative to resources
+typeOf: ".csv"
+schemaOf: "https://raw.githubusercontent.com/briefings/buildings/develop/src/main/resources/schemata/schemaOf.json"
