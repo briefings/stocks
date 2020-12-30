@@ -2,57 +2,21 @@
   "type": "struct",
   "fields": [
     {
-      "name": "date",
-      "type": "date",
+      "name": "Period",
+      "type": "string",
       "nullable": false,
       "metadata":
       {
-        "comment": "The data date yyyy-mm-dd"
+        "comment": "The data period mmm-yyyy"
       }
     },
     {
-      "name": "open",
+      "name": "Value",
       "type": "float",
       "nullable": false,
       "metadata":
       {
-        "comment": "Open value"
-      }
-    },
-    {
-      "name": "high",
-      "type": "float",
-      "nullable": false,
-      "metadata":
-      {
-        "comment": "The highest value of the stock on this date"
-      }
-    },
-    {
-      "name": "low",
-      "type": "float",
-      "nullable": false,
-      "metadata":
-      {
-        "comment": "The lowest value of the stock on this date"
-      }
-    },
-    {
-      "name": "close",
-      "type": "float",
-      "nullable": false,
-      "metadata":
-      {
-        "comment": "The closing value of the stock on this date"
-      }
-    },
-    {
-      "name": "volume",
-      "type": "long",
-      "nullable": false,
-      "metadata":
-      {
-        "comment": "The volume of this stock that was traded on this date"
+        "comment": "Total Units, which have not been seasonally adjusted.  Measured in thousands of units."
       }
     }
   ]
