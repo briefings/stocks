@@ -16,15 +16,15 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.types.{DataType, StructType}
 
-class ReadSchemaOf(spark: SparkSession) {
+class SchemaOf(spark: SparkSession) {
 
   private val localSettings = new LocalSettings()
   private val dataDirectories = new DataDirectories()
 
-  def readSchemaOf(parameters: InspectArguments.Parameters): Try[StructType] = {
+  def schemaOf(parameters: InspectArguments.Parameters): Try[StructType] = {
 
     // Logging
-    val logger: Logger = Logger(classOf[ReadSchemaOf])
+    val logger: Logger = Logger(classOf[SchemaOf])
 
 
     // The directory, schema file (including its extension), ...
@@ -38,7 +38,7 @@ class ReadSchemaOf(spark: SparkSession) {
     val make: Try[Boolean] = dataDirectories.make(new File(directoryString))
 
     // Unload the schema file into a local directory ...
-    val schemaOf: Try[Unit] = if (make.isSuccess) { Exception.allCatch.withTry(
+    val schemaUnload: Try[Unit] = if (make.isSuccess) { Exception.allCatch.withTry(
         FileUtils.copyURLToFile(new URL(parameters.schemaOf),
           new File(directoryAndFileString))
       )} else {
@@ -46,8 +46,8 @@ class ReadSchemaOf(spark: SparkSession) {
     }
 
     // Failure?
-    if (schemaOf.isFailure) {
-      sys.error(schemaOf.failed.get.getMessage)
+    if (schemaUnload.isFailure) {
+      sys.error(schemaUnload.failed.get.getMessage)
     }
 
     // Read-in the schema
