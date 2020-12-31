@@ -9,11 +9,13 @@ class Aggregating(spark: SparkSession) {
   def aggregating(stocks: Dataset[Stocks]): Unit = {
 
     // Dataset Approach
-    println("\n\nCase: Dataset")
+    println("\n\nCase: Dataset Aggregating")
 
     // Numeric Fields
-    // val numericFields: Array[Column] = stocks.columns.filterNot(field => field == "date").map(field => col(field))
-    val numericFields: Array[String] = stocks.columns.filterNot(field => field == "date")
+    // val numericFields: Array[Column] = stocks.columns
+    //    .filterNot(field => field == "date" | field == "year" | field == "month").map(field => col(field))
+    val numericFields: Array[String] = stocks.columns
+      .filterNot(field => field == "date" | field == "year" | field == "month" )
 
     // Implicits
     import spark.implicits._
@@ -26,16 +28,12 @@ class Aggregating(spark: SparkSession) {
     stocks.summary("count").show()
 
     // Sums
-    stocks.select(sum($"volume").as("volume")).show()
-
     val totals = numericFields.map(field => sum(field).as(field))
     stocks.agg(totals.head, totals.tail: _*).show()
 
     // Extrema
     stocks.select(min($"volume").as("min_volume"), max($"volume").as("max_volume")).show()
-
     stocks.agg(min($"low").as("lowest_price")).show()
-
     stocks.select(max($"close" - $"open").as("highest_single_day_inc")).show()
 
     // Averages
