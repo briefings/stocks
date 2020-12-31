@@ -7,6 +7,7 @@ import com.grey.directories.LocalSettings
 import com.grey.inspectors.InspectArguments
 import com.grey.metadata.CaseClassOf.Stocks
 import com.grey.metadata.SchemaOf
+import org.apache.spark.sql.functions.{year, month}
 import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.storage.StorageLevel
@@ -45,7 +46,8 @@ class DataSteps(spark: SparkSession) {
     }
 
     // Reduce
-    val pillar: DataFrame = sections.reduce(_ union _)
+    var pillar: DataFrame = sections.reduce(_ union _)
+    pillar = pillar.withColumn("year", year($"date")).withColumn("month", month($"date"))
     pillar.persist(StorageLevel.MEMORY_ONLY)
 
     // Table
@@ -53,10 +55,14 @@ class DataSteps(spark: SparkSession) {
 
     // Dataset
     val stocks: Dataset[Stocks] = pillar.as[Stocks]
+    stocks.persist(StorageLevel.MEMORY_ONLY)
 
     // Hence
     new com.grey.sql.Aggregating(spark = spark).aggregating()
     new com.grey.sets.Aggregating(spark = spark).aggregating(stocks = stocks)
+
+    new com.grey.sql.Grouping(spark = spark).grouping()
+    new com.grey.sets.Grouping(spark = spark).grouping(stocks = stocks)
 
   }
 
