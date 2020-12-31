@@ -5,9 +5,11 @@ import java.nio.file.Paths
 
 import com.grey.directories.LocalSettings
 import com.grey.inspectors.InspectArguments
-import com.grey.metadata.ReadSchemaOf
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import com.grey.metadata.CaseClassOf.Stocks
+import com.grey.metadata.SchemaOf
+import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
 import org.apache.spark.sql.types.StructType
+import org.apache.spark.storage.StorageLevel
 
 import scala.collection.parallel.immutable.ParSeq
 import scala.util.Try
@@ -22,7 +24,7 @@ class DataSteps(spark: SparkSession) {
     import spark.implicits._
 
     // Schema of data
-    val schemaOf: Try[StructType] = new ReadSchemaOf(spark = spark).readSchemaOf(parameters = parameters)
+    val schemaOf: Try[StructType] = new SchemaOf(spark = spark).schemaOf(parameters = parameters)
 
     // The list of data files
     val listOfFiles: List[File] = new ListOfFiles().listOfFiles(
@@ -32,8 +34,6 @@ class DataSteps(spark: SparkSession) {
 
     // Sections
     val sections: ParSeq[DataFrame] = listOfFiles.par.map { file =>
-
-      println(file.toString)
 
       spark.read.schema(schemaOf.get)
         .format("csv")
@@ -46,8 +46,19 @@ class DataSteps(spark: SparkSession) {
 
     // Reduce
     val pillar: DataFrame = sections.reduce(_ union _)
-    pillar.show()
+    pillar.persist(StorageLevel.MEMORY_ONLY)
 
+    // Table
+    pillar.createOrReplaceTempView("stocks")
+    spark.sql("SELECT * FROM stocks LIMIT 5").show()
+
+    // Dataset
+    val stocks: Dataset[Stocks] = pillar.as[Stocks]
+    stocks.show(5)
+
+    // Hence
+    // new com.grey.sql.Aggregating(spark = spark).aggregating()
+    new com.grey.sets.Aggregating(spark = spark).aggregating(stocks = stocks)
 
   }
 
