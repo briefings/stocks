@@ -50,14 +50,12 @@ class DataSteps(spark: SparkSession) {
 
     // Table
     pillar.createOrReplaceTempView("stocks")
-    spark.sql("SELECT * FROM stocks LIMIT 5").show()
 
     // Dataset
     val stocks: Dataset[Stocks] = pillar.as[Stocks]
-    stocks.show(5)
 
     // Hence
-    // new com.grey.sql.Aggregating(spark = spark).aggregating()
+    new com.grey.sql.Aggregating(spark = spark).aggregating()
     new com.grey.sets.Aggregating(spark = spark).aggregating(stocks = stocks)
 
   }
