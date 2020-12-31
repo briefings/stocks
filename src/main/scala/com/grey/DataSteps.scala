@@ -58,8 +58,8 @@ class DataSteps(spark: SparkSession) {
     stocks.persist(StorageLevel.MEMORY_ONLY)
 
     // Hence
-    new com.grey.sql.Aggregating(spark = spark).aggregating()
-    new com.grey.sets.Aggregating(spark = spark).aggregating(stocks = stocks)
+    // new com.grey.sql.Aggregating(spark = spark).aggregating()
+    // new com.grey.sets.Aggregating(spark = spark).aggregating(stocks = stocks)
 
     new com.grey.sql.Grouping(spark = spark).grouping()
     new com.grey.sets.Grouping(spark = spark).grouping(stocks = stocks)
