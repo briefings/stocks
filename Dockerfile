@@ -29,7 +29,7 @@ USER ${NB_USER}
 
 
 # Prepare
-RUN apt-get update && apt-get install -y \
+RUN cd /usr/local/ && apt-get update && apt-get install -y \
     openjdk-8-jdk \
     ca-certificates-java \
     graphviz \
@@ -43,7 +43,7 @@ ARG SCALA_BINARY_ARCHIVE_NAME=scala-${SCALA_VERSION}
 ARG SCALA_BINARY_DOWNLOAD_URL=https://downloads.lightbend.com/scala/${SCALA_VERSION}/${SCALA_BINARY_ARCHIVE_NAME}.tgz
 ENV SCALA_HOME  /usr/local/scala
 
-RUN wget -q ${SCALA_BINARY_DOWNLOAD_URL} && \
+RUN cd $HOME && wget -q ${SCALA_BINARY_DOWNLOAD_URL} && \
     tar -zxvf ${SCALA_BINARY_ARCHIVE_NAME}.tgz && \
     cp -R ${SCALA_BINARY_ARCHIVE_NAME} /usr/local/scala && \
     rm -R scala*
