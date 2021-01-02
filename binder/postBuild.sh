@@ -27,11 +27,7 @@ curl -Lo coursier https://git.io/coursier-cli && chmod +x coursier
 
 
 # Install required Jupyter/JupyterLab extensions
-jupyter contrib nbextension install --user
-jupyter nbextension enable --py widgetsnbextension
-
 jupyter labextension install \
-    @jupyter-widgets/jupyterlab-manager@0.38 \
     @almond-sh/scalafmt \
     @almond-sh/jupyterlab_variableinspector \
     @jupyterlab/toc \
