@@ -10,17 +10,17 @@ ALMOND_VERSION=0.6.0
 
 
 # Install coursier
-curl -fLo coursier https://github.com/coursier/coursier/releases/download/v2.0.3/cs-x86_64-pc-linux
-chmod +x coursier
+curl -Lo coursier https://git.io/coursier-cli && chmod +x coursier
 
 
 # Install almond for Scala 2.11
-coursier bootstrap \
+./coursier bootstrap \
     -r jitpack \
     -i user -I user:sh.almond:scala-kernel-api_${SCALA_VERSION}:${ALMOND_VERSION} \
     sh.almond:scala-kernel_${SCALA_VERSION}:${ALMOND_VERSION} \
     -o almond
-./almond --install
+
+./almond --install --id scala_2_11_12  --display-name "Scala 2.11.12"
 
 
 # Install required Jupyter/JupyterLab extensions
