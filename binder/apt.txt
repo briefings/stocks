@@ -1,0 +1,4 @@
+openjdk-8-jdk
+ca-certificates-java
+graphviz
+curl
