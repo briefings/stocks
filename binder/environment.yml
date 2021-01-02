@@ -4,5 +4,7 @@ channels:
 dependencies:
   - nbdime
   - jupyterlab~=2.0
+  - ipywidgets
+  - jupyter_contrib_nbextensions
   - nodejs>=12
   - nbgitpuller
