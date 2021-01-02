@@ -2,13 +2,12 @@ FROM almondsh/almond:latest
 
 USER root
 
-RUN apt-get update && apt-get -y install \
-    openjdk-8-jre-headless \
+RUN apt-get update && apt-get install -y \
+    openjdk-8-jdk \
     ca-certificates-java \
     graphviz \
-    curl
-
-USER $NB_UID
+    curl && \
+    apt-get clean
 
 RUN wget -q https://git.io/coursier-cli && \
     chmod +x coursier && \
@@ -16,6 +15,8 @@ RUN wget -q https://git.io/coursier-cli && \
     rm -f coursier
 
 ENV DEFAULT_KERNEL_NAME "scala"
+
+USER $NB_UID
 
 RUN jupyter labextension install @jupyterlab/plotly-extension \
     @almond-sh/scalafmt \
