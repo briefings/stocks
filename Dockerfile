@@ -28,15 +28,6 @@ RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
 
 
-# Prepare
-RUN cd /usr/local/ && sudo apt-get update && sudo apt-get install -y \
-    openjdk-8-jdk \
-    ca-certificates-java \
-    graphviz \
-    curl && \
-    apt-get clean
-
-
 # Scala
 ARG SCALA_VERSION=2.12.12
 ARG SCALA_BINARY_ARCHIVE_NAME=scala-${SCALA_VERSION}
