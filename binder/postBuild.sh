@@ -20,7 +20,10 @@ curl -Lo coursier https://git.io/coursier-cli && chmod +x coursier
     sh.almond:scala-kernel_${SCALA_VERSION}:${ALMOND_VERSION} \
     -o almond
 
-./almond --install --id scala_2_11_12  --display-name "Scala 2.11.12"
+./almond --install --id scala_2_11_12  --display-name "Scala 2.11.12"  \
+    --command "java -XX:MaxRAMPercentage=80.0 -jar almond --id scala_2_11_12 --display-name 'Scala 2.11.12'" \
+    --copy-launcher \
+    --metabrowse
 
 
 # Install required Jupyter/JupyterLab extensions
