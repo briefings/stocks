@@ -5,10 +5,8 @@ set -e
 
 
 # Variables
-ALMOND_VERSION=0.10.9
-SCALA_VERSION_PREV=2.11.12
-ALMOND_VERSION_PREV=0.6.0
-JUPYTER_CONFIG_DIR=$(jupyter --config-dir)
+SCALA_VERSION=2.11.12
+ALMOND_VERSION=0.6.0
 
 
 # Install coursier
@@ -17,67 +15,21 @@ chmod +x coursier
 
 
 # Install almond for Scala 2.11
-./coursier launch --fork almond --scala 2.11.12 -- --install \
-    --id scala211 \
-    --display-name "Scala (2.11)" \
-    --env "JAVA_OPTS=-XX:MaxRAMPercentage=80.0"
-
-
-# Install almond for Scala 2.13
-./coursier launch --fork almond --scala 2.13.3 -- --install \
-    --id scala213 \
-    --display-name "Scala (2.13)" \
-    --env "JAVA_OPTS=-XX:MaxRAMPercentage=80.0"
-
-
-# Install almond for Scala 2.12
-./coursier launch --fork almond --scala 2.12.12 -- --install \
-    --id scala212 \
-    --display-name "Scala (2.12)" \
-    --env "JAVA_OPTS=-XX:MaxRAMPercentage=80.0"
-
-
-# Hence
-rm -f coursier
+coursier bootstrap \
+    -r jitpack \
+    -i user -I user:sh.almond:scala-kernel-api_${SCALA_VERSION}:${ALMOND_VERSION} \
+    sh.almond:scala-kernel_${SCALA_VERSION}:${ALMOND_VERSION} \
+    -o almond
+./almond --install
 
 
 # Install required Jupyter/JupyterLab extensions
-jupyter labextension install --minimize=False jupyterlab-plotly \
+jupyter contrib nbextension install --user
+jupyter nbextension enable --py widgetsnbextension
+
+jupyter labextension install \
+    @jupyter-widgets/jupyterlab-manager@0.38 \
     @almond-sh/scalafmt \
     @almond-sh/jupyterlab_variableinspector \
-    @jupyterlab/toc
-
-
-# Classic notebook
-mkdir -p ${JUPYTER_CONFIG_DIR}/nbconfig/
-cat > ${JUPYTER_CONFIG_DIR}/nbconfig/notebook.json <<- EOF
-{
-  "CodeCell": {
-    "cm_config": {
-      "indentUnit": 2
-    }
-  }
-}
-EOF
-
-
-# Jupyter Lab notebook
-mkdir -p ${JUPYTER_CONFIG_DIR}/lab/user-settings/@jupyterlab/notebook-extension/
-cat > ${JUPYTER_CONFIG_DIR}/lab/user-settings/@jupyterlab/notebook-extension/tracker.jupyterlab-settings <<- EOF
-{
-    "codeCellConfig": {
-      "tabSize": 2
-    }
-}
-EOF
-
-
-# Jupyter Lab editor
-mkdir -p ${JUPYTER_CONFIG_DIR}/lab/user-settings/@jupyterlab/fileeditor-extension/
-cat > ${JUPYTER_CONFIG_DIR}/lab/user-settings/@jupyterlab/fileeditor-extension/plugin.jupyterlab-settings <<- EOF
-{
-    "editorConfig": {
-      "tabSize": 2,
-    }
-}
-EOF
+    @jupyterlab/toc \
+    --minimize=False
