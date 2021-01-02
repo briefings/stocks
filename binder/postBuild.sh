@@ -12,7 +12,7 @@ JUPYTER_CONFIG_DIR=$(jupyter --config-dir)
 
 
 # Install coursier
-curl -Lo coursier https://git.io/coursier-cli
+curl -fLo coursier https://github.com/coursier/coursier/releases/download/v2.0.3/cs-x86_64-pc-linux
 chmod +x coursier
 
 
