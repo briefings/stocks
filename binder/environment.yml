@@ -1,0 +1,8 @@
+name: supplement
+channels:
+  - conda-forge
+dependencies:
+  - nbdime
+  - jupyterlab~=2.0
+  - nodejs>=12
+  - nbgitpuller
