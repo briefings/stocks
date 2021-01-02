@@ -1,11 +1,13 @@
 #!/bin/bash
 
+# https://mybinder.readthedocs.io/en/latest/using/config_files.html#postbuild-run-code-after-installing-the-environment
+set -e
+
+
 # Variables
 ALMOND_VERSION=0.10.9
-
 SCALA_VERSION_PREV=2.11.12
 ALMOND_VERSION_PREV=0.6.0
-
 JUPYTER_CONFIG_DIR=$(jupyter --config-dir)
 
 
