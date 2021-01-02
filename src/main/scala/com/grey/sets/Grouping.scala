@@ -15,10 +15,12 @@ class Grouping(spark: SparkSession) {
     //Implicits
     import spark.implicits._
 
-    // Volume per month
-    stocks.select($"year", $"month", $"volume").groupBy($"year", $"month")
-      .sum("volume").alias("volume").orderBy($"year", $"month").show(5)
-
+    /*
+    * Volume per month
+    * In order to avoid field names issues, use this approach instead of
+    *   stocks.select($"year", $"month", $"volume").groupBy($"year", $"month")
+          .sum("volume").alias("volume").orderBy($"year", $"month").
+    */
     stocks.select($"year", $"month", $"volume").groupBy($"year", $"month")
       .agg(sum($"volume").as("volume")).orderBy($"year", $"month").show(5)
 

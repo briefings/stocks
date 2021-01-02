@@ -64,6 +64,9 @@ class DataSteps(spark: SparkSession) {
     new com.grey.sql.Grouping(spark = spark).grouping()
     new com.grey.sets.Grouping(spark = spark).grouping(stocks = stocks)
 
+    new com.grey.sql.Conditionals(spark = spark).conditionals()
+    new com.grey.sets.Conditionals(spark = spark).conditionals(stocks = stocks)
+
   }
 
 }
