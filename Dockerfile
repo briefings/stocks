@@ -6,7 +6,7 @@ RUN pip install --no-cache-dir jupyterlab==3.0.0 nbdime==2.1.0
 
 
 # Variables
-ARG NB_USER=greyhypotheses
+ARG NB_USER=jovyan
 ARG NB_UID=1000
 ENV USER ${NB_USER}
 ENV NB_UID ${NB_UID}
