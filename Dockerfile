@@ -29,7 +29,7 @@ USER ${NB_USER}
 
 
 # Prepare
-RUN cd /usr/local/ && apt-get update && apt-get install -y \
+RUN cd /usr/local/ && sudo apt-get update && sudo apt-get install -y \
     openjdk-8-jdk \
     ca-certificates-java \
     graphviz \
