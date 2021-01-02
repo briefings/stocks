@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # https://mybinder.readthedocs.io/en/latest/using/config_files.html#postbuild-run-code-after-installing-the-environment
 set -e
@@ -18,7 +18,8 @@ curl -Lo coursier https://git.io/coursier-cli && chmod +x coursier
     -r jitpack \
     -i user -I user:sh.almond:scala-kernel-api_${SCALA_VERSION}:${ALMOND_VERSION} \
     sh.almond:scala-kernel_${SCALA_VERSION}:${ALMOND_VERSION} \
-    -o almond
+    -o almond \
+    </dev/null 2>&1 | grep -v '^Download'
 
 ./almond --install --id scala_2_11_12  --display-name "Scala 2.11.12"  \
     --command "java -XX:MaxRAMPercentage=80.0 -jar almond --id scala_2_11_12 --display-name 'Scala 2.11.12'" \
@@ -28,6 +29,7 @@ curl -Lo coursier https://git.io/coursier-cli && chmod +x coursier
 
 # Install required Jupyter/JupyterLab extensions
 jupyter labextension install \
+    jupyterlab-plotly \
     @almond-sh/scalafmt \
     @almond-sh/jupyterlab_variableinspector \
     @jupyterlab/toc \
