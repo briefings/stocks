@@ -13,11 +13,22 @@ ALMOND_VERSION=0.6.0
 curl -Lo coursier https://git.io/coursier-cli && chmod +x coursier
 
 
+# Install almond for Scala 2.12
+./coursier launch "almond:0.10.9" --scala 2.12.12 -- \
+  --install \
+  --id scala212 \
+  --display-name "Scala (2.12)" \
+  --env "JAVA_OPTS=-XX:MaxRAMPercentage=80.0" \
+  --variable-inspector \
+  </dev/null 2>&1 | grep -v '^Download'
+
+
 # Install almond for Scala 2.11
 ./coursier bootstrap \
     -r jitpack \
     -i user -I user:sh.almond:scala-kernel-api_${SCALA_VERSION}:${ALMOND_VERSION} \
     sh.almond:scala-kernel_${SCALA_VERSION}:${ALMOND_VERSION} \
+    --sources --default=true \
     -o almond \
     </dev/null 2>&1 | grep -v '^Download'
 
