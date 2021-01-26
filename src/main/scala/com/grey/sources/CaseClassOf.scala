@@ -1,4 +1,4 @@
-package com.grey.metadata
+package com.grey.sources
 
 import java.sql.Date
 
