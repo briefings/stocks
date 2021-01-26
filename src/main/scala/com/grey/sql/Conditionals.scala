@@ -14,7 +14,7 @@ class Conditionals(spark: SparkSession) {
       "WHEN open > 100 THEN 'excellent' " +
       "WHEN open > 65 AND open <= 100 THEN 'take note' " +
       "WHEN open > 35 AND open <= 65 THEN 'promising' " +
-      "ELSE 'infancy' END AS class FROM stocks ORDER BY date").show(11)
+      "ELSE 'infancy' END AS class FROM stocks ORDER BY date").show(5)
 
   }
 
