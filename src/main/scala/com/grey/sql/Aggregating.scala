@@ -13,7 +13,6 @@ class Aggregating(spark: SparkSession) {
     spark.sql("SELECT COUNT(*) AS n FROM stocks").show()
     spark.sql("SELECT COUNT(high) AS count_of_nonnull_high FROM stocks WHERE high IS NOT NULL").show()
     spark.sql("SELECT COUNT(high) AS count_of_high FROM stocks").show()
-    spark.sql("SELECT COUNT(date) AS count_of_date FROM stocks").show()
 
     // Sums
     spark.sql("SELECT SUM(open) AS open, SUM(high) AS high, SUM(low) AS low, " +
