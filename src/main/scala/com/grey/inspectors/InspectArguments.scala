@@ -36,6 +36,7 @@ object InspectArguments {
   }
 
   // Verification of parameters
+  // Missing: Verification of schema URL ... partly addressed in SchemaOf.scala
   class Parameters(@JsonProperty("dataPath") _dataPath: String,
                    @JsonProperty("typeOf") _typeOf: String,
                    @JsonProperty("schemaOf") _schemaOf: String){

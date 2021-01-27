@@ -1,6 +1,6 @@
 package com.grey.sets
 
-import com.grey.metadata.CaseClassOf.Stocks
+import com.grey.sources.CaseClassOf.Stocks
 import org.apache.spark.sql.{Dataset, SparkSession}
 import org.apache.spark.sql.functions.{count, isnull, sum, min, max, avg}
 
@@ -24,7 +24,6 @@ class Aggregating(spark: SparkSession) {
     stocks.select(count("*").as("n")).show()
     stocks.filter(!isnull($"high")).select(count($"high").as("count_of_nonnull_high")).show()
     stocks.select(count($"high").as("count_of_high")).show()
-    stocks.select(count($"date").as("count_of_date")).show()
     stocks.summary("count").show()
 
     // Sums

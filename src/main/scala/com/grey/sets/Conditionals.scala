@@ -1,6 +1,6 @@
 package com.grey.sets
 
-import com.grey.metadata.CaseClassOf.Stocks
+import com.grey.sources.CaseClassOf.Stocks
 import org.apache.spark.sql.{Dataset, SparkSession}
 import org.apache.spark.sql.functions.when
 
@@ -19,7 +19,7 @@ class Conditionals(spark: SparkSession) {
       when($"open" > 100, "excellent")
         .when($"open" > 65 && $"open" <= 100, "take note")
         .when($"open" > 35 && $"open" <= 65, "promising")
-        .otherwise("infancy").as("class")).show(11)
+        .otherwise("infancy").as("class")).show(5)
 
   }
 

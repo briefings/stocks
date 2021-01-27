@@ -52,7 +52,7 @@
       "nullable": false,
       "metadata":
       {
-        "comment": "The volume of this stock that was traded on this date"
+        "comment": "The stock volume traded on this date"
       }
     }
   ]

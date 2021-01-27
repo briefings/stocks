@@ -1,6 +1,6 @@
 package com.grey.sets
 
-import com.grey.metadata.CaseClassOf.Stocks
+import com.grey.sources.CaseClassOf.Stocks
 import org.apache.spark.sql.{Dataset, SparkSession}
 
 import org.apache.spark.sql.functions.{sum, avg, min, max}
