@@ -22,6 +22,10 @@ class DataSteps(spark: SparkSession) {
     stocksSet.persist(StorageLevel.MEMORY_ONLY)
     stocksFrame.createOrReplaceTempView("stocks")
 
+    // A summary of the temporary tables
+    println("\n\nIn relation to SQL, the temporary tables are")
+    spark.sql("SHOW TABLES").show()
+
     // Hence
     new com.grey.queries.Aggregating(spark = spark).aggregating(stocks = stocksSet)
     new com.grey.queries.Conditionals(spark = spark).conditionals(stocks = stocksSet)
