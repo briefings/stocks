@@ -4,13 +4,23 @@ import com.grey.sources.CaseClassOf.Stocks
 import org.apache.spark.sql.functions.{count, max, min, sum, avg}
 import org.apache.spark.sql.{Dataset, SparkSession}
 
+/**
+  *
+  * @param spark: An instance of SparkSession
+  */
 class Aggregating(spark: SparkSession) {
 
   private val prices: Array[String] = Array("open", "high", "low", "close")
 
+  /**
+    * Focus: counts, sums, extrema (min, max), avg
+    *
+    * @param stocks: The stocks Dataset
+    */
   def aggregating(stocks: Dataset[Stocks]): Unit = {
 
-    println("\n\nAggregating")
+
+    println("\n\nAggregating\n")
 
 
     /**
@@ -28,7 +38,7 @@ class Aggregating(spark: SparkSession) {
     val tally: Long = spark.sql("SELECT COUNT(*) AS n FROM stocks").head().getAs[Long]("n")
     val tallySet: Long = stocks.count()
     val tallySetAlt: Long = stocks.select(count("*").as("n")).head().getAs[Long]("n")
-    println(s"\nThe # of Apple stock records\nsql: $tally, dataset: $tallySet, $tallySetAlt")
+    println(s"The # of Apple stock records\nsql: $tally, dataset: $tallySet, $tallySetAlt")
 
     val highNotNull: Long = spark.sql("SELECT COUNT(high) AS n FROM stocks WHERE high IS NOT NULL")
       .head().getAs[Long]("n")
