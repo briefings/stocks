@@ -23,6 +23,9 @@ class DataSteps(spark: SparkSession) {
     stocksFrame.createOrReplaceTempView("stocks")
 
     // Hence
+    new com.grey.queries.Aggregating(spark = spark).aggregating(stocks = stocksSet)
+
+    /*
     new com.grey.sql.Aggregating(spark = spark).aggregating()
     new com.grey.sets.Aggregating(spark = spark).aggregating(stocks = stocksSet)
 
@@ -31,6 +34,7 @@ class DataSteps(spark: SparkSession) {
 
     new com.grey.sql.Conditionals(spark = spark).conditionals()
     new com.grey.sets.Conditionals(spark = spark).conditionals(stocks = stocksSet)
+    */
 
   }
 
