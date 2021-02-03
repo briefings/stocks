@@ -50,6 +50,7 @@ class DataRead(spark: SparkSession) {
     // Create the Dataset version
     val stocksSet: Dataset[Stocks] = stocksFrame.as[Stocks]
 
+    // Hence
     (stocksFrame, stocksSet)
 
   }
