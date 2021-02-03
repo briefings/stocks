@@ -25,17 +25,7 @@ class DataSteps(spark: SparkSession) {
     // Hence
     new com.grey.queries.Aggregating(spark = spark).aggregating(stocks = stocksSet)
     new com.grey.queries.Conditionals(spark = spark).conditionals(stocks = stocksSet)
-
-    /*
-    new com.grey.sql.Aggregating(spark = spark).aggregating()
-    new com.grey.sets.Aggregating(spark = spark).aggregating(stocks = stocksSet)
-
-    new com.grey.sql.Grouping(spark = spark).grouping()
-    new com.grey.sets.Grouping(spark = spark).grouping(stocks = stocksSet)
-
-    new com.grey.sql.Conditionals(spark = spark).conditionals()
-    new com.grey.sets.Conditionals(spark = spark).conditionals(stocks = stocksSet)
-    */
+    new com.grey.queries.Grouping(spark = spark).grouping(stocks = stocksSet)
 
   }
 
