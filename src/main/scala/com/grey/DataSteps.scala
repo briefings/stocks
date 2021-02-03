@@ -24,6 +24,7 @@ class DataSteps(spark: SparkSession) {
 
     // Hence
     new com.grey.queries.Aggregating(spark = spark).aggregating(stocks = stocksSet)
+    new com.grey.queries.Conditionals(spark = spark).conditionals(stocks = stocksSet)
 
     /*
     new com.grey.sql.Aggregating(spark = spark).aggregating()
