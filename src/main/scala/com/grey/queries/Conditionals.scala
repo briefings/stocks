@@ -4,11 +4,21 @@ import com.grey.sources.CaseClassOf.Stocks
 import org.apache.spark.sql.functions.{when, count}
 import org.apache.spark.sql.{Dataset, SparkSession}
 
+/**
+  *
+  * @param spark: An instance of SparkSession
+  */
 class Conditionals(spark: SparkSession) {
 
+  /**
+    * Focus: Conditionals
+    *
+    * @param stocks: The stocks Dataset
+    */
   def conditionals(stocks: Dataset[Stocks]): Unit = {
 
-    println("\n\nConditionals & Case Statements")
+
+    println("\n\nConditionals & Case Statements\n")
 
 
     /**
@@ -23,8 +33,7 @@ class Conditionals(spark: SparkSession) {
     /**
       * Conditionals and the CASE statement
       */
-
-    println("\nAfter creating the labels" +
+    println("After creating the labels" +
       "\n\texcellent [100, inf), take note [65, 100), promising [35, 65), infancy (-inf, 35)" +
       "\nw.r.t. the open prices, the frequency tables in relation to sql & dataset, respectively, are")
 
